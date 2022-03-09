@@ -39,6 +39,7 @@ class _CalculatorState extends State<Calculator> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
+                controller: numberOneController,
                 decoration: InputDecoration(
                   hintText: "Input number 1",
                   border: OutlineInputBorder(),
@@ -49,6 +50,7 @@ class _CalculatorState extends State<Calculator> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
+                controller: numberTwoController,
                 decoration: InputDecoration(
                   hintText: "Input number 2",
                   border: OutlineInputBorder(),
@@ -66,7 +68,19 @@ class _CalculatorState extends State<Calculator> {
                       children: [
                         ElevatedButton(
                             onPressed: (){
+                            String number1 = numberOneController.text.toString();
+                            String number2 = numberTwoController.text.toString();
 
+                              if(number1.isEmpty || number2.isEmpty){
+                                ScaffoldMessenger
+                                    .of(context)
+                                    .showSnackBar(
+                                    SnackBar(content: Text("Empty value")));
+                                return;
+                              }
+                              setState(() {
+                                result = (int.parse(number1) + int.parse(number2)).toDouble();
+                              });
                             },
                             child: Text("+")),
                         ElevatedButton(
@@ -103,7 +117,7 @@ class _CalculatorState extends State<Calculator> {
     if(result != null){
       return Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Text("= 10"),
+        child: Center(child: Text("= $result")),
       );
     }else{
       return Container();
