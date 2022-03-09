@@ -85,7 +85,19 @@ class _CalculatorState extends State<Calculator> {
                             child: Text("+")),
                         ElevatedButton(
                             onPressed: (){
+                              String number1 = numberOneController.text.toString();
+                              String number2 = numberTwoController.text.toString();
 
+                              if(number1.isEmpty || number2.isEmpty){
+                                ScaffoldMessenger
+                                    .of(context)
+                                    .showSnackBar(
+                                    SnackBar(content: Text("Empty value")));
+                                return;
+                              }
+                              setState(() {
+                                result = (int.parse(number1) - int.parse(number2)).toDouble();
+                              });
                             },
                             child: Text("-")),
                       ],
@@ -95,12 +107,42 @@ class _CalculatorState extends State<Calculator> {
                       children: [
                         ElevatedButton(
                             onPressed: (){
+                              String number1 = numberOneController.text.toString();
+                              String number2 = numberTwoController.text.toString();
 
+                              if(number1.isEmpty || number2.isEmpty){
+                                ScaffoldMessenger
+                                    .of(context)
+                                    .showSnackBar(
+                                    SnackBar(content: Text("Empty value")));
+                                return;
+                              }
+                              setState(() {
+                                result = ((int.parse(number1))*(int.parse(number2))).toDouble();
+                              });
                             },
                             child: Text("*")),
                         ElevatedButton(
                             onPressed: (){
+                              String number1 = numberOneController.text.toString();
+                              String number2 = numberTwoController.text.toString();
 
+                              if(number1.isEmpty || number2.isEmpty){
+                                ScaffoldMessenger
+                                    .of(context)
+                                    .showSnackBar(
+                                    SnackBar(content: Text("Empty value")));
+                                return;
+                              }else if(number2 == 0){
+                                ScaffoldMessenger
+                                    .of(context)
+                                    .showSnackBar(
+                                    SnackBar(content: Text("Empty value ...")));
+                                return;
+                              }else
+                              setState(() {
+                                result = ((int.parse(number1))/(int.parse(number2))).toDouble();
+                              });
                             },
                             child: Text("/")),
                       ],
