@@ -1,3 +1,4 @@
+import 'package:calculator_widget_flutter/model/todo_model.dart';
 import 'package:flutter/material.dart';
 class TodosListview extends StatefulWidget {
   const TodosListview({Key? key}) : super(key: key);
@@ -7,6 +8,8 @@ class TodosListview extends StatefulWidget {
 }
 
 class _TodosListviewState extends State<TodosListview> {
+  final List<ToDoModel> mListTodos = ToDoModel.getMock();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,9 +18,9 @@ class _TodosListviewState extends State<TodosListview> {
       ),
       body: Container(
         child: ListView.separated(
-          itemCount: 10,
+          itemCount: mListTodos.length,
           itemBuilder: (context, position){
-            return Text("View $position ");
+            return itemListView(mListTodos[position]);
           },
           separatorBuilder: (context, position){
             return SizedBox(
@@ -28,5 +31,22 @@ class _TodosListviewState extends State<TodosListview> {
       ),
 
     );
+  }
+  Widget itemListView(ToDoModel toDoModel){
+    return Card(
+      child: ListTile(
+        title: Text(toDoModel.title),
+        subtitle: Text(toDoModel.description , maxLines: 1, overflow: TextOverflow.ellipsis,),
+        isThreeLine: false,
+
+        trailing: IconButton(
+          icon: Icon(Icons.delete, color: Colors.red,),
+          onPressed: (){
+
+          },
+        ),
+      ),
+    );
+  },
   }
 }
