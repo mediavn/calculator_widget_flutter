@@ -8,4 +8,11 @@ class ToDoModel{
   String toString() {
     return 'ToDoModel{title: $title, description: $description}';
   }
+  static List<ToDoModel> getMock(){
+    return List.generate(10, (index) {
+      return ToDoModel(
+          title: "title ${index + 1}",
+          description: "Do something ${index + 1}");
+    });
+  }
 }
